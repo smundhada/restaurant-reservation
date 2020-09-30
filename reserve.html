@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </head>
+
 <body>
     <div class="jumbotron justify-content-center">
         <h1 class="display-4 text-center">Make your reservation</h1>
@@ -17,24 +22,41 @@
     <form>
         <div class="form-group">
           <label for="exampleInputEmail1">Name</label>
-          <input type="email" class="form-control" id="resName" aria-describedby="emailHelp" placeholder="Enter your name">
+          <input type="input" class="form-control" id="resName" aria-describedby="emailHelp" placeholder="Enter your name">
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Phone number</label>
-          <input type="password" class="form-control" id="resPhone" placeholder="Enter your phone number">
+          <input type="input" class="form-control" id="resPhone" placeholder="Enter your phone number">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Email</label>
-            <input type="password" class="form-control" id="resEmail" placeholder="Enter your email">
+            <input type="email" class="form-control" id="resEmail" placeholder="Enter your email">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Unique ID</label>
-            <input type="password" class="form-control" id="resId" placeholder="Enter a unique id">
+            <input type="input" class="form-control" id="resId" placeholder="Enter a unique id">
           </div>
         <button type="submit" class="btn btn-primary" id="resSubmitBtn">Submit Reservation</button>
       </form>
       
     
 </body>
+<script type="text/javascript">
+$("#resSubmitBtn").on("click", function(event) {
+    event.preventDefault();
+    var tableinfo = {
+        name : $("#resName").val(),
+        phone : $("#resPhone").val(),
+        email : $("#resEmail").val(),
+        id : $("#resId").val()
+    }
+
+    $.post("/reserve", tableinfo).then(function(data){
+      console.log("tables.html", data);
+      alert("reserving your table");
+    });
+
+});
+</script>
 </html>
